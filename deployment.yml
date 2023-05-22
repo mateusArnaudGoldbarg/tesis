@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mateusarnaud/dl_comp
+  labels:
+    app: mateusarnaud/dl_comp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mateusarnaud/dl_comp
+  template:
+    metadata:
+      labels:
+        app: mateusarnaud/dl_comp
+    spec:
+      containers:
+      - name: mateusarnaud/dl_comp
+        image: mateusarnaud/dl_comp
+        ports:
+        - containerPort: 8080
+        env:
+        - name: FLASK_ENV
+          value: "production"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mateusarnaud/dl_comp-service
+  labels:
+    app: mateusarnaud/dl_comp
+spec:
+  selector:
+    app: mateusarnaud/dl_comp
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: LoadBalancer
