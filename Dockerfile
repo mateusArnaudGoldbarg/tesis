@@ -8,7 +8,7 @@ WORKDIR /app
 COPY data.h5 /app/data.h5
 
 # Install any additional dependencies if needed
-RUN pip install flask numpy h5py
+RUN pip install flask numpy h5py os-sys
 
 # Copy your application code to the container
 COPY main.py /app/main.py
